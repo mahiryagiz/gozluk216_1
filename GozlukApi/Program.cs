@@ -17,8 +17,12 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Railway MySQL bağlantısı: önce environment variable, yoksa appsettings.json
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
+    ?? builder.Configuration.GetConnectionString("DefaultConnection")!;
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!)
+    options.UseMySQL(connectionString)
 );
 
 var app = builder.Build();
