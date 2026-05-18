@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Cart({ userId, onCartUpdate, onCheckout }) {
   const [items, setItems] = useState([]);
 
   async function fetchCart() {
-    const response = await fetch(`http://localhost:5000/api/cart/${userId}`);
+    const response = await fetch(`${API_URL}/api/cart/${userId}`);
     const data = await response.json();
     setItems(data);
     const total = data.reduce(function(sum, item) { return sum + item.quantity; }, 0);
@@ -16,7 +18,7 @@ function Cart({ userId, onCartUpdate, onCheckout }) {
   }, []);
 
   async function removeItem(id) {
-    await fetch(`http://localhost:5000/api/cart/${id}`, {
+    await fetch(`${API_URL}/api/cart/${id}`, {
       method: "DELETE"
     });
     fetchCart();
@@ -24,7 +26,7 @@ function Cart({ userId, onCartUpdate, onCheckout }) {
 
   async function handleIncrease(item) {
     const newQuantity = item.quantity + 1;
-    await fetch(`http://localhost:5000/api/cart/${item.id}`, {
+    await fetch(`${API_URL}/api/cart/${item.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -40,11 +42,11 @@ function Cart({ userId, onCartUpdate, onCheckout }) {
   async function handleDecrease(item) {
     const newQuantity = item.quantity - 1;
     if (newQuantity <= 0) {
-      await fetch(`http://localhost:5000/api/cart/${item.id}`, {
+      await fetch(`${API_URL}/api/cart/${item.id}`, {
         method: "DELETE"
       });
     } else {
-      await fetch(`http://localhost:5000/api/cart/${item.id}`, {
+      await fetch(`${API_URL}/api/cart/${item.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

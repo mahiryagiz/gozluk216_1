@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function ProductDetail({ productId, userId, onBack, onCartUpdate }) {
   const [product, setProduct] = useState(null);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     async function fetchProduct() {
-      const response = await fetch(`http://localhost:5000/api/Product/${productId}`);
+      const response = await fetch(`${API_URL}/api/Product/${productId}`);
       const data = await response.json();
       setProduct(data);
     }
@@ -15,7 +17,7 @@ function ProductDetail({ productId, userId, onBack, onCartUpdate }) {
 
   async function addToCart() {
     try {
-      await fetch("http://localhost:5000/api/cart", {
+      await fetch(`${API_URL}/api/cart`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -24,7 +26,7 @@ function ProductDetail({ productId, userId, onBack, onCartUpdate }) {
           quantity: 1
         })
       });
-      const response = await fetch(`http://localhost:5000/api/cart/${userId}`);
+      const response = await fetch(`${API_URL}/api/cart/${userId}`);
       const data = await response.json();
       const total = data.reduce((sum, item) => sum + item.quantity, 0);
       onCartUpdate(total);

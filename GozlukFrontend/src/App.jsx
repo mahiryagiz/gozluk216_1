@@ -7,6 +7,8 @@ import ProductDetail from "./pages/ProductDetail";
 import "./App.css";
 import Checkout from "./pages/Checkout";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
   const [page, setPage] = useState("products");
   const [userId, setUserId] = useState(null);
@@ -20,7 +22,7 @@ function App() {
       const savedUserId = localStorage.getItem("userId");
       if (savedUserId) {
         setUserId(parseInt(savedUserId));
-        const response = await fetch(`http://localhost:5000/api/cart/${savedUserId}`);
+        const response = await fetch(`${API_URL}/api/cart/${savedUserId}`);
         const data = await response.json();
         const total = data.reduce(function(sum, item) { return sum + item.quantity; }, 0);
         setCartCount(total);
@@ -35,7 +37,7 @@ function App() {
     localStorage.setItem("userId", id);
     setUserId(id);
     setPage("products");
-    const response = await fetch(`http://localhost:5000/api/cart/${id}`);
+    const response = await fetch(`${API_URL}/api/cart/${id}`);
     const data = await response.json();
     const total = data.reduce(function(sum, item) { return sum + item.quantity; }, 0);
     setCartCount(total);
@@ -50,7 +52,7 @@ function App() {
       setCartCount(count);
     } else {
       const id = userId || localStorage.getItem("userId");
-      const response = await fetch(`http://localhost:5000/api/cart/${id}`);
+      const response = await fetch(`${API_URL}/api/cart/${id}`);
       const data = await response.json();
       const total = data.reduce(function(sum, item) { return sum + item.quantity; }, 0);
       setCartCount(total);
