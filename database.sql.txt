@@ -1,0 +1,67 @@
+CREATE DATABASE IF NOT EXISTS DemoAuthDB;
+USE DemoAuthDB;
+
+CREATE TABLE IF NOT EXISTS Users (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS Products (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Brand VARCHAR(50) NOT NULL,
+    Model VARCHAR(50) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    Stock INT DEFAULT 0,
+    ImageUrl VARCHAR(255),
+    Description TEXT,
+    Gender VARCHAR(10) NOT NULL DEFAULT 'Unisex'
+);
+
+CREATE TABLE IF NOT EXISTS Carts (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    UserId INT NOT NULL,
+    ProductId INT NOT NULL,
+    Quantity INT DEFAULT 1,
+    FOREIGN KEY (UserId) REFERENCES Users(Id),
+    FOREIGN KEY (ProductId) REFERENCES Products(Id)
+);
+
+INSERT INTO Products (Name, Brand, Model, Price, Stock, ImageUrl, Description, Gender) VALUES
+('Aviator Classic', 'Ray-Ban', 'RB3025', 1999.00, 40, '/images/aviator.jpg', 'İkonik pilot gözlük, altın metal çerçeve, yeşil cam', 'Erkek'),
+('Wayfarer', 'Ray-Ban', 'RB2140', 1499.00, 35, '/images/wayfarer.jpg', 'Klasik dikdörtgen çerçeve, siyah', 'Unisex'),
+('Clubmaster', 'Ray-Ban', 'RB3016', 1699.00, 30, '/images/clubmaster.jpg', 'Retro browline tasarım, kahverengi', 'Erkek'),
+('Justin Classic', 'Ray-Ban', 'RB4165', 1299.00, 45, '/images/justin.jpg', 'Sportif dikdörtgen çerçeve, mat siyah', 'Erkek'),
+('Round Metal', 'Ray-Ban', 'RB3447', 1599.00, 25, '/images/roundmetal.jpg', 'Vintage yuvarlak metal çerçeve, altın', 'Unisex'),
+('Hexagonal Flat', 'Ray-Ban', 'RB3548N', 1749.00, 20, '/images/hexagonal.jpg', 'Altıgen çerçeve, gümüş metal', 'Erkek'),
+('Erika', 'Ray-Ban', 'RB4171', 1399.00, 30, '/images/erika.jpg', 'Kadife dokulu yuvarlak çerçeve, mat siyah', 'Kadın'),
+('Thalia', 'Ray-Ban', 'RB2195', 1599.00, 20, '/images/thalia.jpg', 'Kelebek form, şeffaf kahverengi', 'Kadın'),
+('Aviator Reverse', 'Ray-Ban', 'RB0101S', 2299.00, 15, '/images/aviator_reverse.jpg', 'Ters aviator, gümüş çerçeve', 'Erkek'),
+('Wayfarer Oval', 'Ray-Ban', 'RB2242', 1799.00, 18, '/images/wayfarer_oval.jpg', 'Oval wayfarer, şeffaf çerçeve', 'Unisex'),
+('Panthère de Cartier', 'Cartier', 'CT0345S', 24500.00, 8, '/images/panthere.jpg', 'Altın kaplama metal çerçeve, lüks koleksiyon', 'Kadın'),
+('Santos de Cartier', 'Cartier', 'CT0039S', 22000.00, 6, '/images/santos.jpg', 'Dikdörtgen çerçeve, altın ve siyah', 'Erkek'),
+('Signature C de Cartier', 'Cartier', 'CT0229S', 19500.00, 7, '/images/signature_c.jpg', 'İnce metal çerçeve, gümüş', 'Unisex'),
+('Trinity de Cartier', 'Cartier', 'CT0353S', 21000.00, 5, '/images/trinity.jpg', 'Üç renk altın detaylı çerçeve', 'Kadın'),
+('Louis Cartier', 'Cartier', 'CT0271S', 20500.00, 6, '/images/louis_cartier.jpg', 'Klasik dikdörtgen, güneş sarısı cam', 'Erkek'),
+('TH Flex', 'Tommy Hilfiger', 'TH1970/S', 1850.00, 30, '/images/th_flex.jpg', 'Esnek çerçeve, lacivert', 'Erkek'),
+('TH Preppy', 'Tommy Hilfiger', 'TH2089/S', 1650.00, 25, '/images/th_preppy.jpg', 'Klasik kare form, havana', 'Erkek'),
+('TH Iconic', 'Tommy Hilfiger', 'TH1980/S', 1750.00, 20, '/images/th_iconic.jpg', 'Amerikan klasiği, kırmızı-lacivert detay', 'Unisex'),
+('TH Modern', 'Tommy Hilfiger', 'TH2067/S', 1550.00, 22, '/images/th_modern.jpg', 'Modern dikdörtgen, gümüş çerçeve', 'Kadın'),
+('TH Sport', 'Tommy Hilfiger', 'TH1955/S', 1450.00, 28, '/images/th_sport.jpg', 'Sportif wrap tasarım, siyah', 'Erkek'),
+('VO Hailey', 'Vogue', 'VO5338S', 899.00, 35, '/images/vo_hailey.jpg', 'Hailey Bieber koleksiyonu, kelebek form', 'Kadın'),
+('VO Pillow', 'Vogue', 'VO5484S', 799.00, 40, '/images/vo_pillow.jpg', 'Yastık formu, pembe şeffaf çerçeve', 'Kadın'),
+('VO Geometric', 'Vogue', 'VO5352S', 749.00, 30, '/images/vo_geometric.jpg', 'Geometrik çerçeve, havana', 'Unisex'),
+('VO Retro', 'Vogue', 'VO5426S', 849.00, 25, '/images/vo_retro.jpg', 'Retro yuvarlak çerçeve, mor', 'Kadın'),
+('VO Classic', 'Vogue', 'VO5291S', 699.00, 35, '/images/vo_classic.jpg', 'Klasik dikdörtgen, siyah', 'Erkek'),
+('Medusa Icon', 'Versace', 'VE4361', 5500.00, 12, '/images/medusa_icon.jpg', 'Medusa logolu kare çerçeve, altın', 'Erkek'),
+('Greca', 'Versace', 'VE4406', 5200.00, 10, '/images/greca.jpg', 'Greca desen, siyah asetat', 'Erkek'),
+('Rock Icons', 'Versace', 'VE4371', 4800.00, 8, '/images/rock_icons.jpg', 'Pilot form, gümüş Medusa detay', 'Unisex'),
+('Biggie', 'Versace', 'VE4392', 5800.00, 7, '/images/biggie.jpg', 'Oversize kare, altın Medusa', 'Kadın'),
+('VE Shield', 'Versace', 'VE4445', 6200.00, 6, '/images/ve_shield.jpg', 'Shield tasarım, siyah-altın', 'Erkek'),
+('Miu Miu Glimpse', 'Miu Miu', 'MU 54ZS', 8900.00, 8, '/images/miumiu_glimpse.jpg', 'Logo detaylı oval çerçeve, açık mavi', 'Kadın'),
+('Miu Miu Logo', 'Miu Miu', 'MU 01ZS', 9200.00, 6, '/images/miumiu_logo.jpg', 'Büyük logo, dikdörtgen form, siyah', 'Kadın'),
+('Miu Miu Runway', 'Miu Miu', 'MU 11WS', 8500.00, 7, '/images/miumiu_runway.jpg', 'Pist koleksiyonu, dikdörtgen, havana', 'Unisex'),
+('Miu Miu Core', 'Miu Miu', 'MU 03ZS', 7900.00, 9, '/images/miumiu_core.jpg', 'Kedi gözü form, pembe şeffaf', 'Kadın'),
+('Miu Miu Mantle', 'Miu Miu', 'MU 69VS', 8200.00, 5, '/images/miumiu_mantle.jpg', 'Geometrik oversize, krem beyaz', 'Kadın');
