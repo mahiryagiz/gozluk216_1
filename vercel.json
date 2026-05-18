@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd GozlukFrontend && npm install && npm run build",
+  "outputDirectory": "GozlukFrontend/dist",
+  "installCommand": "cd GozlukFrontend && npm install",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
