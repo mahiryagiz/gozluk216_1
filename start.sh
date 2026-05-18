@@ -15,7 +15,7 @@ done
 echo "✅ MySQL hazır"
 
 # 2. Backend API'yi başlat (arka planda)
-echo "⚙️  Backend API başlatılıyor (port 5000)..."
+echo "⚙️  Backend API başlatılıyor (port 5050)..."
 cd GozlukApi
 export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
 dotnet run --launch-profile http &
@@ -39,7 +39,7 @@ echo "========================================="
 echo "✅ Tüm servisler çalışıyor!"
 echo "========================================="
 echo "🌐 Frontend  → http://localhost:5173"
-echo "⚙️  Backend   → http://localhost:5000"
+echo "⚙️  Backend   → http://localhost:5050"
 echo "📦 MySQL     → localhost:3306"
 echo ""
 echo "Durdurmak için: Ctrl+C"
